@@ -1,0 +1,14 @@
+{
+    "name": "estandar-odbc",
+    "version": "0.0.1",
+    "private": true,
+    "main": "index.js",
+    "dependencies": {
+        "path": "^0.12.7",
+        "express": "^4.17.1",
+        "odbc": "^2.3.4"
+    },
+    "devDependencies": {
+        "nodemon": "^1.18.11"
+    }
+}

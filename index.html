@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Ejercicio 1</h2>
+    <input type="button" onclick="alta()" value="Enviar"/>
+    <div id="mensaje"></div>
+</body>
+<script>
+    function alta() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "/alta", false);
+        xhttp.send();
+        var ele = document.getElementById("mensaje").innerHTML=xhttp.responseText;
+    }
+</script>    
+</html>
