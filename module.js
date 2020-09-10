@@ -62,5 +62,25 @@ module.exports= {
             res.status( 500 )
             res.send( e )
         }
-      }    
+      },    
+      tiendas: (req, res) => {
+        console.log( Date() + ": /tiendas" );  
+        try {
+            const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
+              cursor.query('select store_id, address from store, address limit 2',
+              (error, result)=>{
+                if(error){
+                  return res.send(JSON.stringify(error))
+                }else{              
+                  
+                  return res.send(result)
+                }  
+              });
+            });
+        } catch (e) {
+            console.error( e )
+            res.status( 500 )
+            res.send( e )
+        }
+      }          
 }

@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
-<body onload="paises()">
+<body onload="selectores()">
 <h2>Alta Cliente</h2>
 <div>
+ 
+    <label>Tienda:</label>
+    <select id="tiendas"></select><br><br>   
     <label>Nombre:</label>
     <input type="text" id="last_name"/><br><br>
     <label>Apellido:</label>
@@ -29,59 +32,13 @@
     <label for="si">Si</label>
     <input type="radio" id="active" name="Si" value="1"/>
     <label for="no">No</label>
-    <input type="radio" id="active" name="No" value="0"/><br><br>    
-
-</div>
-
-
+    <input type="radio" id="active" name="No" value="0"/><br><br> 
     <br><br>
     <input type="button" onclick="alta()" value="Enviar"/>
     <div id="mensaje"></div>
+
+
+</div>
 </body>
-<script>
-    function paises() {
-        var out = "";
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "/paises", false);
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send();        
-        var data = JSON.parse(xhttp.responseText)
-        for (let i = 0; i < data.length; i++) {
-            out += '<option value="' + data[i].country_id + '">' + data[i].country + '</option>';
-            }        
-        document.getElementById('paises').innerHTML=out;
-    }
-
-    function ciudades() {
-        var out = "";
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/ciudades", false);
-        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhttp.send(JSON.stringify({"country_id":document.getElementById('paises').value}));         
-        var data = JSON.parse(xhttp.responseText)
-        for (let i = 0; i < data.length; i++) {
-            out += '<option value="' + data[i].city_id + '">' + data[i].city + '</option>';
-            }        
-        document.getElementById('ciudades').innerHTML=out;
-    }
-    function alta() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "/alta", false);
-        xhttp.send();
-        var ele = document.getElementById("location").innerHTML=xhttp.responseText;
-    }
-
-    function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else { 
-        document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
-    }
-    }
-
-    function showPosition(position) {
-    document.getElementById("location").value = "POINT(" + position.coords.latitude + 
-    "," + position.coords.longitude+")";
-    }
-</script>    
+<script src="/selectores.js"></script>    
 </html>

@@ -12,12 +12,16 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', { root: publicRoot });
 });
 
+app.get('/selectores.js', (req, res) => {
+  res.sendFile('selectores.js',{ root: publicRoot });
+});
 
 app.use(bodyParser.json()); 
 //Route
 app.get('/alta', controller.alta);
 app.post('/ciudades', controller.ciudades);
 app.get('/paises', controller.paises);
+app.get('/tiendas', controller.tiendas);
 // Server
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
