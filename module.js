@@ -5,6 +5,7 @@ module.exports= {
     alta: (req, res) => {
         console.log( Date() + ": /alta" );  
         try {
+            console.log(req.body)
             const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
               cursor.query('select * from film',
               (error, result)=>{
