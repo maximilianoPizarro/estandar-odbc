@@ -21,10 +21,9 @@ module.exports= {
             res.status( 500 )
             res.send( e )
         }
-      },
-    
-    ciudades: (req, res) => {
-        console.log( Date() + ": /ciudades "+req.body.country_id);  
+      },    
+    ciudadesById: (req, res) => {
+        console.log( Date() + ": /ciudadesById "+req.body.country_id);  
         try {
             const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
               cursor.query('select city_id,city from city where country_id='+req.body.country_id,
@@ -43,7 +42,26 @@ module.exports= {
             res.send( e )
         }
       },
-    
+      ciudades: (req, res) => {
+        console.log( Date() + ": /ciudades ");  
+        try {
+            const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
+              cursor.query('select city_id,city from city',
+              (error, result)=>{
+                if(error){
+                  return res.send(JSON.stringify(error))
+                }else{              
+                  
+                  return res.send(result)
+                }  
+              });
+            });
+        } catch (e) {
+            console.error( e )
+            res.status( 500 )
+            res.send( e )
+        }
+      },          
     paises: (req, res) => {
         console.log( Date() + ": /paises" );  
         try {
@@ -83,5 +101,25 @@ module.exports= {
             res.status( 500 )
             res.send( e )
         }
-      }
+      },
+      clientes: (req, res) => {
+        console.log( Date() + ": /clientes ");  
+        try {
+            const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
+              cursor.query('select customer_id,first_name,last_name from customer order by customer_id desc limit 10',
+              (error, result)=>{
+                if(error){
+                  return res.send(JSON.stringify(error))
+                }else{              
+                  
+                  return res.send(result)
+                }  
+              });
+            });
+        } catch (e) {
+            console.error( e )
+            res.status( 500 )
+            res.send( e )
+        }
+      }      
 }

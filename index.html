@@ -1,41 +1,121 @@
 <!DOCTYPE html>
-<html>
-<body onload="selectores()">
-<h2>Alta Cliente</h2>
-<div id="mensaje"></div><br><br> 
-<div>
-    <label>Tienda:</label>
-    <select id="tiendas"></select><br><br>   
-    <label>Nombre:</label>
-    <input type="text" id="last_name"/><br><br>
-    <label>Apellido:</label>
-    <input type="text" id="first_name"/><br><br>
-    <label>Email:</label>
-    <input type="email" id="email" /><br><br>
-    <label>Dirección:</label>
-    <input type="text" id="address" /><br><br>
-    <label>Dirección Alternativa:</label>
-    <input type="text" id="address2" /><br><br> 
-    <label>Distrito:</label>
-    <input type="text" id="district" /><br><br>  
-    <label>Pais:</label>
-    <select id="paises"  onchange="ciudades()"></select><br><br>              
-    <label>Ciudad:</label>
-    <select id="ciudades"></select><br><br>        
-    <label>Codigo Postal:</label>
-    <input type="text" id="postal_code" /><br><br>    
-    <label>Telefono:</label>
-    <input type="text" id="phone" /><br><br>    
-    <label>Latitud y Longitud: <input type="text" id="location" /> <input type="button" onclick="getLocation()" value="consultar"/></label>
-    <br><br>        
-    <label>Activo:</label>
-    <label for="si">Si</label>
-    <input type="radio" id="active" name="Si" value="1"/>
-    <label for="no">No</label>
-    <input type="radio" id="active" name="No" value="0"/><br><br>      <br><br>
-    <input type="button" onclick="alta()" value="Enviar"/>
-   
 
+<html lang="en">
+<head>
+  <title>Clientes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body onload="selectores()">
+    <div class="jumbotron text-center">
+        <h1>Clientes</h1>
+        <p></p> 
+    </div>
+
+<div class="container">
+    <div class="row">        
+      <div class="col-sm-4">        
+        <h3>Datos del cliente</h3>
+        <div class="form-group">
+            <label for="tiendas" >Tienda:</label>
+            <select id="tiendas" class="form-control form-control-sm"></select>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Nombre:</label>
+            <input type="text" class="form-control form-control-sm" id="last_name"/>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Apellido:</label>
+            <input type="text" class="form-control form-control-sm" id="first_name"/>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control form-control-sm" id="email" />
+        </div>    
+        <div class="form-group">
+            <label for="address">Dirección:</label>
+            <input type="text" class="form-control form-control-sm" id="address" />
+        </div>
+        <div class="form-group">
+            <label for="address2">Dirección Alternativa:</label>
+            <input type="text" class="form-control form-control-sm" id="address2" />
+        </div>
+        <div class="form-group">
+            <label for="district">Distrito:</label>
+            <input type="text" class="form-control form-control-sm" id="district" />
+        </div>
+        <div class="form-group">
+            <label for="paises">Pais:</label>
+            <select id="paises" class="form-control form-control-sm" onchange="ciudadesById()"></select>              
+        </div>    
+        <div class="form-group">
+            <label for="ciudades">Ciudad:</label>
+            <select id="ciudades" class="form-control form-control-sm" ></select>        
+        </div>
+        <div class="form-group">
+            <label for="postal_code">Codigo Postal:</label>
+            <input type="text" class="form-control form-control-sm" id="postal_code" />   
+        </div> 
+        <div class="form-group">
+            <label for="phone">Telefono:</label>
+            <input type="text" class="form-control form-control-sm"  id="phone" />    
+        </div>
+        <div class="form-group">
+        <label for="si">Ubicación</label>
+            <div class="input-group mb-3">
+                <input type="text" id="location"  class="form-control" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"  onclick="getLocation()" >Consultar</button>
+                </div>
+            </div>
+        </div>
+        <label>Activo:</label>        
+        <div class="checkbox">
+        <label for="si">Si</label>
+        <input type="radio" id="active" name="Si" value="1"/>
+        </div>        
+        <div class="checkbox">
+        <label for="no">No</label>
+        <input type="radio" id="active" name="No" value="0"/>
+        </div>
+        <input type="button" class="btn btn-primary"  onclick="alta()" value="Enviar"/><br>
+        <br><br><div  class="alert alert-primary" role="alert" id="mensaje"></div>
+    
+</div>
+<div class="col-sm-8">
+    <h3>Búsqueda</h3><br>
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Nombre, apellido, ciudad</span>
+        </div>
+        <input type="text" class="form-control" id="sfirst_name"/>
+        <input type="text" class="form-control" id="slast_name"/>
+        <select id="sciudades" class="form-control" ></select>  
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2"  onclick="buscar()" >Consultar</button> 
+      </div>
+      <!--tabla-->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Accion</th>
+          </tr>
+        </thead>
+        <tbody id="clientes-body"></tbody>
+      </table>
+  </div>
+</div>
+</div>
+</div>
 
 </div>
 </body>

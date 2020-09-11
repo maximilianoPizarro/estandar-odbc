@@ -19,7 +19,9 @@ app.get('/util.js', (req, res) => {
 app.use(bodyParser.json()); 
 //Route
 app.post('/alta', controller.alta);
+app.post('/ciudadesById', controller.ciudadesById);
 app.post('/ciudades', controller.ciudades);
+app.post('/clientes', controller.clientes);
 app.get('/paises', controller.paises);
 app.get('/tiendas', controller.tiendas);
 // Server

@@ -1,6 +1,9 @@
 function selectores(){
+    document.getElementById("mensaje").style.display = "none";
+    clientes() 
     paises()
     tiendas()
+    ciudadesById()
     ciudades()
 }
 var tupla= {"latitud":0, "longitud":0};
@@ -31,10 +34,10 @@ function paises() {
     document.getElementById('paises').innerHTML=out;
 }
 
-function ciudades() {
+function ciudadesById() {
     var out = "";
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/ciudades", false);
+    xhttp.open("POST", "/ciudadesById", false);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.send(JSON.stringify({"country_id":document.getElementById('paises').value}));         
     var data = JSON.parse(xhttp.responseText)
@@ -43,7 +46,31 @@ function ciudades() {
         }        
     document.getElementById('ciudades').innerHTML=out;
 }
+function ciudades() {
+    var out = "";
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/ciudades", false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send();         
+    var data = JSON.parse(xhttp.responseText)
+    for (let i = 0; i < data.length; i++) {
+        out += '<option value="' + data[i].city_id + '">' + data[i].city + '</option>';
+        }        
+    document.getElementById('sciudades').innerHTML=out;
+}
 
+function clientes() {
+    var out = "";
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/clientes", false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send();         
+    var data = JSON.parse(xhttp.responseText)
+    for (let i = 0; i < data.length; i++) {
+        out += '<tr><th scope="row">"' + data[i].customer_id + '"</th><td>' + data[i].first_name +'</td><td>'+ data[i].last_name +'</td><td><button class="btn btn-outline-secondary" type="button" id="button-addon2"  onclick="buscar()" >Ver</button></td></tr>';
+        }        
+    document.getElementById('clientes-body').innerHTML=out;
+}
 //ubicación
 function getLocation() {
 if (navigator.geolocation) {
@@ -68,6 +95,7 @@ function alta() {
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     console.log(JSON.stringify(serialize()))
     xhttp.send(JSON.stringify(serialize()));
+    document.getElementById("mensaje").style.display = "block";
     var ele = document.getElementById("mensaje").innerHTML=xhttp.responseText;
 }
 
