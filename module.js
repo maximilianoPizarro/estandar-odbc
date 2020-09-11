@@ -5,9 +5,9 @@ module.exports= {
     alta: (req, res) => {
         console.log( Date() + ": /alta" );  
         try {
-            console.log(req.body)
+            console.log(JSON.stringify(req.body, null, 0))
             const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
-              cursor.callProcedure(null, "sakila", 'nuevocliente',[req.body],
+              cursor.callProcedure(null, null, 'nuevocliente',[JSON.stringify(req.body, null, 0)],
               (error, result)=>{
                 if(error){
                   return res.send(JSON.stringify(error))

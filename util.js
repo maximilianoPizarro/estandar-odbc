@@ -68,7 +68,7 @@ function alta() {
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     console.log(JSON.stringify(serialize()))
     xhttp.send(JSON.stringify(serialize()));
-    var ele = document.getElementById("location").innerHTML=xhttp.responseText;
+    var ele = document.getElementById("mensaje").innerHTML=xhttp.responseText;
 }
 
 
