@@ -21,16 +21,16 @@ BEGIN
      vlocation,
      CURRENT_TIMESTAMP);
 
-    #SELECT max(address_id) from address into identificador;
-    #(address,address2,district,city_id,postal_code,phone,location)
-    #INSERT INTO customer (store_id,last_name,first_name,email,active,address_id)
-    #VALUES(JSON_EXTRACT(cliente, '$.store_id'),
-    # JSON_EXTRACT(cliente, '$.last_name'),
-    # JSON_EXTRACT(cliente, '$.first_name'),
-    # JSON_EXTRACT(cliente, '$.email'),    
-    # JSON_EXTRACT(cliente, '$.active'),
-    # identificador
-    #  );
+    SELECT max(address_id) from address into identificador;
+        
+    INSERT INTO customer (store_id,last_name,first_name,email,active,address_id)
+    VALUES(JSON_EXTRACT(cliente, '$.store_id'),
+     JSON_EXTRACT(cliente, '$.last_name'),
+     JSON_EXTRACT(cliente, '$.first_name'),
+     JSON_EXTRACT(cliente, '$.email'),    
+     JSON_EXTRACT(cliente, '$.active'),
+     identificador
+      );
 
 END $$
 DELIMITER ;
