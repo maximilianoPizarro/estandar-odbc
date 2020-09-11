@@ -3,7 +3,7 @@ function selectores(){
     tiendas()
     ciudades()
 }
-
+var tupla= {"latitud":0, "longitud":0};
 //select
 function tiendas() {
     var out = "";
@@ -54,9 +54,12 @@ if (navigator.geolocation) {
 }
 
 function showPosition(position) {
-document.getElementById("location").value = "POINT(" + position.coords.latitude + 
+tupla={"latitud" : position.coords.latitude , "longitud": position.coords.longitude};    
+document.getElementById("location").value = "(" + position.coords.latitude + 
 "," + position.coords.longitude+")";
 }
+
+
 
 //alta cliente
 function alta() {
@@ -95,10 +98,11 @@ function serialize(){
     document.getElementById('phone').value,
     "active":
     document.getElementById('active').value,
-    "location":
-    document.getElementById('location').value
+    "latitud":
+    tupla.latitud,
+    "logintud":
+    tupla.longitud
 }
-
 
 }
 
