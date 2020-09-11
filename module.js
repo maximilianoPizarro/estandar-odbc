@@ -7,7 +7,7 @@ module.exports= {
         try {
             console.log(req.body)
             const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
-              cursor.callProcedure(null, null, 'nuevocliente',[req.body],
+              cursor.callProcedure(null, "sakila", 'nuevocliente',[req.body],
               (error, result)=>{
                 if(error){
                   return res.send(JSON.stringify(error))

@@ -6,10 +6,7 @@ CREATE DEFINER='root'@'localhost' PROCEDURE `nuevocliente` (
 IN cliente   JSON )
 BEGIN
     DECLARE identificador smallint;
-    DECLARE vlocation GEOMETRY;
-    SET vlocation= POINT(JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.latitud'))
-    ,JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.longitud'))); 
-    
+
     INSERT INTO address (address,address2,district,city_id,
     postal_code,phone,location,last_update)
     VALUES(JSON_EXTRACT(cliente, '$.address'),
@@ -18,7 +15,7 @@ BEGIN
      JSON_EXTRACT(cliente, '$.city_id'), 
      JSON_EXTRACT(cliente, '$.postal_code'),
      JSON_EXTRACT(cliente, '$.phone'),
-     vlocation,
+     ST_GeomFromText(JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.location')),0),
      CURRENT_TIMESTAMP);
 
     SELECT max(address_id) from address into identificador;
