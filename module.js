@@ -6,13 +6,13 @@ module.exports= {
         console.log( Date() + ": /alta" );  
         try {
             console.log(JSON.stringify(req.body, null, 0))
-            const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
-              cursor.callProcedure(null, null, 'nuevocliente',[JSON.stringify(req.body, null, 0)],
+            const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{              
+              cursor.query('call nuevocliente(?)',[JSON.stringify(req.body, null, 0)],
               (error, result)=>{
                 if(error){
                   return res.send(JSON.stringify(error))
                 }else{
-                  return res.send(JSON.stringify(result))
+                  return res.send("Cliente creado con exitosamente!")
                 }  
               });
             });
@@ -83,5 +83,5 @@ module.exports= {
             res.status( 500 )
             res.send( e )
         }
-      }          
+      }
 }
