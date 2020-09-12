@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 //Route
 app.post('/alta', controller.alta);
 app.post('/modificacion', controller.modificacion);
+app.post('/baja', controller.baja);
 app.post('/ciudadesById', controller.ciudadesById);
 app.post('/ciudades', controller.ciudades);
 app.post('/clientes', controller.clientes);

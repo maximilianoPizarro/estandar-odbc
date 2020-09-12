@@ -88,3 +88,16 @@ BEGIN
     customer_id=JSON_EXTRACT(cliente,'$.customer_id');
 END $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `bajacliente`;
+DELIMITER $$
+CREATE DEFINER='root'@'localhost' PROCEDURE `bajacliente` (
+IN cliente   JSON )
+BEGIN    
+    DELETE FROM address, customer USING customer
+    INNER JOIN  address
+    WHERE
+    customer.address_id=address.address_id
+    AND customer.customer_id=JSON_EXTRACT(cliente,'$.customer_id');
+END $$
+DELIMITER ;

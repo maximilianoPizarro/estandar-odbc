@@ -1,7 +1,6 @@
 var estado = 0;
 
 function inicio(){
-    document.getElementById("mensaje").style.display = "none";
     blanquearForm()
     clientes() 
     paises()
@@ -110,6 +109,17 @@ function modificacion() {
     inicio()
 }
 
+function baja() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/baja", false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    console.log(JSON.stringify(serialize()))
+    xhttp.send(JSON.stringify(serialize()));
+    document.getElementById("mensaje").style.display = "block";
+    var ele = document.getElementById("mensaje").innerHTML=xhttp.responseText;
+    inicio()
+}
+
 function serialize(){
     return {
         "customer_id":
@@ -162,6 +172,10 @@ function deserialize(json){
     document.getElementById('phone').value=json.phone;  
     if(json.active==0)document.getElementById('inactivo').checked=true
     getLocation();     
+}
+
+document.getElementById('mensaje').onload = function(){
+    document.getElementById('mensaje').style.display = "none";
 }
 
 document.getElementById('activo').onclick = function (){

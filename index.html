@@ -20,9 +20,15 @@
     </div>
 
 <div class="container">
+    <div  class="alert alert-success" role="alert" id="mensaje"></div>
     <div class="row">        
       <div class="col-sm-4">        
         <h3>Datos del cliente</h3>
+        <div class="form-group">
+            <input type="button" class="btn btn-success"  onclick="alta()" value="Alta"/>
+            <input type="button" class="btn btn-warning"  onclick="modificacion()" value="Modificacion"/>
+            <input type="button" class="btn btn-danger"  onclick="baja()" value="Baja"/>
+        </div>
         <input type="hidden" id="customer_id"/>
         <div class="form-group">
             <label for="tiendas" >Tienda:</label>
@@ -91,12 +97,6 @@
             </label>
           </div>
         </div> 
-        <div class="form-group">
-            <input type="button" class="btn btn-success"  onclick="alta()" value="Alta"/>
-            <input type="button" class="btn btn-warning"  onclick="modificacion()" value="Modificacion"/>
-            <input type="button" class="btn btn-danger"  onclick="eliminar()" value="Baja"/>
-        </div>
-        <div  class="alert alert-success" role="alert" id="mensaje"></div>
     
 </div>
 <div class="col-sm-8">
