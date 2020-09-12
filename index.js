@@ -1,7 +1,7 @@
 
 const path = require('path');
 const express = require('express');
-const controller = require('./module.js');
+const controller = require('./controlador.js');
 const bodyParser = require('body-parser');
 
 const port = process.env.PORT || 8080;
@@ -12,8 +12,8 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', { root: publicRoot });
 });
 
-app.get('/util.js', (req, res) => {
-  res.sendFile('util.js',{ root: publicRoot });
+app.get('/eventos.js', (req, res) => {
+  res.sendFile('eventos.js',{ root: publicRoot });
 });
 
 app.use(bodyParser.json()); 

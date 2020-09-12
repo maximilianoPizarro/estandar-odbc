@@ -1,4 +1,4 @@
-function selectores(){
+function inicio(){
     document.getElementById("mensaje").style.display = "none";
     clientes() 
     paises()
@@ -6,7 +6,6 @@ function selectores(){
     ciudadesById()
     ciudades()
 }
-var tupla= {"latitud":0, "longitud":0};
 //select
 function tiendas() {
     var out = "";
@@ -81,7 +80,6 @@ if (navigator.geolocation) {
 }
 
 function showPosition(position) {
-tupla={"latitud" : position.coords.latitude , "longitud": position.coords.longitude};    
 document.getElementById("location").value = "POINT(" + position.coords.latitude + 
 " " + position.coords.longitude+")";
 }
@@ -132,6 +130,22 @@ function serialize(){
 
 }
 
+function deserialize(json){
+    document.getElementById('tiendas').value=parseInt(json.store_id);
+    document.getElementById('last_name').value=json.last_name;
+    document.getElementById('first_name').value=json.first_name;
+    document.getElementById('email').value=json.email;
+    document.getElementById('address').value=json.address;
+    document.getElementById('address2').value=json.address2;
+    document.getElementById('district').value=json.district;
+    document.getElementById('paises').selectedIndex=json.country_id-1;
+    ciudadesById();    
+    document.getElementById('postal_code').value=json.postal_code;    
+    document.getElementById('phone').value=json.phone;
+    document.getElementById('active').checked=true;   
+    getLocation();     
+}
+
 function verCliente(idcliente){
     var out = "";
     var xhttp = new XMLHttpRequest();
@@ -140,17 +154,6 @@ function verCliente(idcliente){
     xhttp.send(JSON.stringify({"customer_id":idcliente}));         
     var data = JSON.parse(xhttp.responseText)
     console.log(data)
-    document.getElementById('tiendas').value=parseInt(data[0].store_id);
-    document.getElementById('last_name').value=data[0].last_name;
-    document.getElementById('first_name').value=data[0].first_name;
-    document.getElementById('email').value=data[0].email;
-    document.getElementById('address').value=data[0].address;
-    document.getElementById('address2').value=data[0].address2;
-    document.getElementById('district').value=data[0].district;
-    document.getElementById('paises').selectedIndex=data[0].country_id-1;
-    ciudadesById();    
-    document.getElementById('postal_code').value=data[0].postal_code;    
-    document.getElementById('phone').value=data[0].phone;
-    document.getElementById('active').checked=true;        
+    deserialize(data[0])
 }
 
