@@ -12,7 +12,7 @@ module.exports= {
                 if(error){
                   return res.send(JSON.stringify(error))
                 }else{
-                  return res.send("Cliente creado con exitosamente!")
+                  return res.send("Cliente creado exitosamente!")
                 }  
               });
             });
@@ -107,6 +107,26 @@ module.exports= {
         try {
             const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
               cursor.query('select customer_id,first_name,last_name from customer order by customer_id desc limit 10',
+              (error, result)=>{
+                if(error){
+                  return res.send(JSON.stringify(error))
+                }else{              
+                  
+                  return res.send(result)
+                }  
+              });
+            });
+        } catch (e) {
+            console.error( e )
+            res.status( 500 )
+            res.send( e )
+        }
+      },
+      clientesById: (req, res) => {
+        console.log( Date() + ": /clientesById "+req.body.customer_id);  
+        try {
+            const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
+              cursor.query('call busquedaid('+req.body.customer_id+')',
               (error, result)=>{
                 if(error){
                   return res.send(JSON.stringify(error))

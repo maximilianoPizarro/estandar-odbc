@@ -67,7 +67,7 @@ function clientes() {
     xhttp.send();         
     var data = JSON.parse(xhttp.responseText)
     for (let i = 0; i < data.length; i++) {
-        out += '<tr><th scope="row">"' + data[i].customer_id + '"</th><td>' + data[i].first_name +'</td><td>'+ data[i].last_name +'</td><td><button class="btn btn-outline-secondary" type="button" id="button-addon2"  onclick="buscar()" >Ver</button></td></tr>';
+        out += '<tr><th scope="row">"' + data[i].customer_id + '"</th><td>' + data[i].first_name +'</td><td>'+ data[i].last_name +'</td><td><button class="btn btn-outline-secondary" type="button" id="button-addon2"  onclick="verCliente(' + data[i].customer_id + ')" >Ver</button></td></tr>';
         }        
     document.getElementById('clientes-body').innerHTML=out;
 }
@@ -130,5 +130,27 @@ function serialize(){
         document.getElementById('location').value
     };
 
+}
+
+function verCliente(idcliente){
+    var out = "";
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/clientesById", false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify({"customer_id":idcliente}));         
+    var data = JSON.parse(xhttp.responseText)
+    console.log(data)
+    document.getElementById('tiendas').value=parseInt(data[0].store_id);
+    document.getElementById('last_name').value=data[0].last_name;
+    document.getElementById('first_name').value=data[0].first_name;
+    document.getElementById('email').value=data[0].email;
+    document.getElementById('address').value=data[0].address;
+    document.getElementById('address2').value=data[0].address2;
+    document.getElementById('district').value=data[0].district;
+    document.getElementById('paises').selectedIndex=data[0].country_id-1;
+    ciudadesById();    
+    document.getElementById('postal_code').value=data[0].postal_code;    
+    document.getElementById('phone').value=data[0].phone;
+    document.getElementById('active').checked=true;        
 }
 

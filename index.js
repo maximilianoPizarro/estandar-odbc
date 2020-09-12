@@ -22,6 +22,7 @@ app.post('/alta', controller.alta);
 app.post('/ciudadesById', controller.ciudadesById);
 app.post('/ciudades', controller.ciudades);
 app.post('/clientes', controller.clientes);
+app.post('/clientesById', controller.clientesById);
 app.get('/paises', controller.paises);
 app.get('/tiendas', controller.tiendas);
 // Server
