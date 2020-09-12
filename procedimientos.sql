@@ -9,6 +9,7 @@ BEGIN
            customer.first_name as first_name,
            customer.email as email,
            customer.active as active,
+           address.address_id as address_id,
            address.address as address,
            address.address2 as address2,
            address.district as district,
@@ -58,3 +59,32 @@ BEGIN
 END $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `modificacliente`;
+DELIMITER $$
+CREATE DEFINER='root'@'localhost' PROCEDURE `modificacliente` (
+IN cliente   JSON )
+BEGIN
+    DECLARE identificador smallint;
+    
+    UPDATE address 
+    SET address=JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.address')),
+        address2=JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.address2')),
+        district=JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.district')),
+        city_id=cliente>'$.city_id',
+        postal_code=JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.postal_code')),
+        phone=JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.phone')),
+        location=ST_GeomFromText(JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.location')),0),
+        last_update=CURRENT_TIMESTAMP
+    where
+     address_id=JSON_EXTRACT(cliente,'$.address_id');
+
+    UPDATE customer 
+    SET store_id=cliente>'$.store_id',
+        last_name=JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.last_name')),
+        first_name=JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.first_name')),
+        email=JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.email')),
+        active=cliente>'$.active'
+    WHERE
+    customer_id=JSON_EXTRACT(cliente,'$.customer_id');
+END $$
+DELIMITER ;

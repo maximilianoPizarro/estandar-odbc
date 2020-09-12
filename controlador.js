@@ -21,7 +21,27 @@ module.exports= {
             res.status( 500 )
             res.send( e )
         }
-      },    
+      },
+      modificacion: (req, res) => {
+        console.log( Date() + ": /modificacion" );  
+        try {
+            console.log(JSON.stringify(req.body, null, 0))
+            const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{              
+              cursor.query('call modificacliente(?)',[JSON.stringify(req.body, null, 0)],
+              (error, result)=>{
+                if(error){
+                  return res.send(JSON.stringify(error))
+                }else{
+                  return res.send("Cliente modificado exitosamente!")
+                }  
+              });
+            });
+        } catch (e) {
+            console.error( e )
+            res.status( 500 )
+            res.send( e )
+        }
+      },          
     ciudadesById: (req, res) => {
         console.log( Date() + ": /ciudadesById "+req.body.country_id);  
         try {

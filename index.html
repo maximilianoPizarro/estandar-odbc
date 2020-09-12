@@ -23,6 +23,7 @@
     <div class="row">        
       <div class="col-sm-4">        
         <h3>Datos del cliente</h3>
+        <input type="hidden" id="customer_id"/>
         <div class="form-group">
             <label for="tiendas" >Tienda:</label>
             <select id="tiendas" class="form-control form-control-sm"></select>
@@ -41,6 +42,7 @@
         </div>    
         <div class="form-group">
             <label for="address">Dirección:</label>
+            <input type="hidden" id="address_id"/>
             <input type="text" class="form-control form-control-sm" id="address" />
         </div>
         <div class="form-group">
@@ -76,17 +78,25 @@
                 </div>
             </div>
         </div>
-        <label>Activo:</label>        
-        <div class="checkbox">
-        <label for="si">Si</label>
-        <input type="radio" id="active" name="Si" value="1"/>
-        </div>        
-        <div class="checkbox">
-        <label for="no">No</label>
-        <input type="radio" id="active" name="No" value="0"/>
+
+        <div class="form-group">
+        <label for="buttons">Estado  </label><br>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <input type="hidden" id="active"/>
+            <label class="btn btn-secondary">
+                <input type="radio" id="activo" name="Si" value="1" > Activo
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" id="inactivo" name="No" value="0"> Inactivo
+            </label>
+          </div>
+        </div> 
+        <div class="form-group">
+            <input type="button" class="btn btn-success"  onclick="alta()" value="Alta"/>
+            <input type="button" class="btn btn-warning"  onclick="modificacion()" value="Modificacion"/>
+            <input type="button" class="btn btn-danger"  onclick="eliminar()" value="Baja"/>
         </div>
-        <input type="button" class="btn btn-primary"  onclick="alta()" value="Enviar"/><br>
-        <br><br><div  class="alert alert-primary" role="alert" id="mensaje"></div>
+        <div  class="alert alert-success" role="alert" id="mensaje"></div>
     
 </div>
 <div class="col-sm-8">
@@ -98,7 +108,7 @@
         <input type="text" class="form-control" id="sfirst_name"/>
         <input type="text" class="form-control" id="slast_name"/>
         <select id="sciudades" class="form-control" ></select>  
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2"  onclick="buscar()" >Consultar</button> 
+        <button class="btn btn-outline-primary" type="button" id="button-addon2"  onclick="buscar()" >Consultar</button> 
       </div>
       <!--tabla-->
       <table class="table">
