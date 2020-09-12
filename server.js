@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.post('/alta', controller.alta);
 app.post('/modificacion', controller.modificacion);
 app.post('/baja', controller.baja);
+app.post('/buscar', controller.buscar);
 app.post('/ciudadesById', controller.ciudadesById);
 app.post('/ciudades', controller.ciudades);
 app.post('/clientes', controller.clientes);

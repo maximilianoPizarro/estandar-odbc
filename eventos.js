@@ -197,6 +197,22 @@ function verCliente(idcliente){
     deserialize(data[0])
 }
 
+function buscar(){
+    var out = "";
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/buscar", false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify({"first_name":document.getElementById('sfirst_name').value,"last_name":document.getElementById('slast_name').value,"city_id":parseInt(document.getElementById('sciudades').value)}));         
+    if (xhttp.status == 500)
+        var ele = document.getElementById("mensaje").innerHTML=xhttp.responseText;
+    var data = JSON.parse(xhttp.responseText)
+    for (let i = 0; i < data.length; i++) {
+        out += '<tr><th scope="row">"' + data[i].customer_id + '"</th><td>' + data[i].first_name +'</td><td>'+ data[i].last_name +'</td><td><button class="btn btn-outline-secondary" type="button" id="button-addon2"  onclick="verCliente(' + data[i].customer_id + ')" >Ver</button></td></tr>';
+        }        
+    document.getElementById('clientes-body').innerHTML=out;
+
+}
+
 function blanquearForm()
 {
     document.getElementById('customer_id').value=0;

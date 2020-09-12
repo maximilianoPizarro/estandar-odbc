@@ -162,6 +162,27 @@ module.exports= {
             res.send( e )
         }
       },
+      buscar: (req, res) => {
+        console.log( Date() + ": /buscar ");  
+        try {
+            console.log(JSON.stringify(req.body, null, 0))
+            const cursor = odbc.connect('DSN=MySQL',(error, cursor)=>{
+              cursor.query('call busquedanombreciudad(?)',[JSON.stringify(req.body, null, 0)],
+              (error, result)=>{
+                if(error){
+                  return res.send(JSON.stringify(error))
+                }else{              
+                  
+                  return res.send(result)
+                }  
+              });
+            });
+        } catch (e) {
+            console.error( e )
+            res.status( 500 )
+            res.send( e )
+        }
+      },      
       clientesById: (req, res) => {
         console.log( Date() + ": /clientesById "+req.body.customer_id);  
         try {

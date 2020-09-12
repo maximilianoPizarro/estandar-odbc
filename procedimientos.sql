@@ -28,6 +28,27 @@ END $$
 DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS `busquedanombreciudad`;
+DELIMITER $$
+CREATE DEFINER='root'@'localhost' PROCEDURE `busquedanombreciudad` (
+    IN cliente JSON)
+BEGIN
+    select customer.customer_id as customer_id,
+           customer.store_id as store_id,
+           customer.last_name as last_name,
+           customer.first_name as first_name
+    from
+        customer
+    inner join  address on address.address_id=customer.address_id
+    inner join city on city.city_id=address.city_id
+    where
+    customer.last_name LIKE CONCAT('%',JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.last_name')))
+    OR customer.first_name LIKE CONCAT('%',JSON_UNQUOTE(JSON_EXTRACT(cliente, '$.first_name')))
+    OR address.city_id = JSON_EXTRACT(cliente, '$.city_id');      
+END $$
+DELIMITER ;
+
+
 DROP PROCEDURE IF EXISTS `nuevocliente`;
 DELIMITER $$
 CREATE DEFINER='root'@'localhost' PROCEDURE `nuevocliente` (
